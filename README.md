@@ -18,34 +18,6 @@ En este programa se ha optado que cada codigo de clase creada sea contenido en u
     
 2. (file:///home/raimundoosf/Im%C3%A1genes/Captura%20de%20pantalla%20de%202022-06-01%2012-06-33.png![image](https://user-images.githubusercontent.com/89752816/171449721-49ca105c-4ef6-436e-bbe8-40c1ea813a7a.png)
 
-model, it = self.tree.get_selection().get_selected()
-        # Validación no selección
-        if model is None or it is None:
-            return
-
-        dialog = Dialog(self)
-        dialog.name.set_text(model.get_value(it, 0))
-        dialog.score.set_text(model.get_value(it, 1))
-        dialog.notes.set_text(model.get_value(it, 2))
-
-        response = dialog.run()
-        if response == Gtk.ResponseType.CANCEL:
-            pass
-        elif response == Gtk.ResponseType.OK:
-            data = open_file(self.file)
-            """remueve ex-linea (editada) de data"""
-            for item in data:
-                if item['Nombre'] == model.get_value(it, 0):
-                    data.remove(item)
-            # se guarda data editada en archivo
-            save_data(data, self.file)
-            dialog.ok_button_clicked(self.file)
-            # borra data mostrada en TreeView
-            self.tree.delate_displayed_data()
-            # carga data de archivo ya ediatada en TreeView
-            self.tree.load_json_data(self.file)
-
-        dialog.destroy() 
     
     Descripcion: Funcion 'button_edit_line_clicked()' es asociada como callback de señal 'clicked' en boton 'button_edit_line' (ver linea 43 de archivo 'main.py'). Dentro de la funcion, primero se evalua si linea seleccionada en TreeView existe. Si accion ha sido validada, se crea objeto de clase 'Dialog', que es una clase heredada de 'Gtk.Dialog' (ver archivo 'dialog.py') e incorpora 'etiquetas' y 'entradas' asociadas para la edicion de data. Al aplicar metodo run(), se evalua respuesta asociada; si respuesta es de tipo 'OK' se procedera a la manipulacion de data.
     Nota: Metodos 'button_remove_line_clicked' y 'button_add_line_clicked' de clase 'main' presentan codigo similar al contenido en metodo recien descrito, pero implementan menos funciones. 
